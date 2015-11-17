@@ -13,6 +13,16 @@ object Handlers  {
   }
 }
 
+abstract class DbAdapter {
+
+  def matchDb(db: String) = {
+
+  }
+
+  def process(db: String) = {
+
+  }
+}
 
 object Runner {
 
