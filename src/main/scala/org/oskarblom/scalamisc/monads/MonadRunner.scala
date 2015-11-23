@@ -6,7 +6,14 @@ package org.oskarblom.scalamisc.monads
 object MonadRunner {
 
   def getUserName(userId: Int): Option[String] = {
-    return Some("foo")
+    return Some("a")
+  }
+
+  def getUserNames(): List[Option[String]] = {
+    return List(
+      Some("a"),
+      Some("d")
+    )
   }
 
   def getUserEmail(userName: String): Option[String] = {
@@ -27,6 +34,32 @@ object MonadRunner {
       case Some(e) => e
       case _  => 0
     }
+  }
+
+  def runFlatMapMonadMulti2(): Int = {
+    val stuff = getUserNames().map( userName => {
+      val loginAttemps = userName.flatMap(uN => {
+        getUserEmail(uN).flatMap(e => {
+          getUserLoginAttempts(e)
+        })
+      })
+      (userName, loginAttemps)
+    }).toMap
+    println(stuff)
+    1
+  }
+
+  def runFlatMapMonadMulti(): Int = {
+    val userName = getUserNames().find(userName => userName.getOrElse("") == "a").flatten
+    val un = getUserNames().flatten.find(userName => userName == "a")
+
+    getUserNames().flatMap(userName => {
+      getUserEmail(userName.getOrElse("")).flatMap( email => {
+        getUserLoginAttempts(email)
+      })
+    })
+    //println(fl)
+    1
   }
 
   def runForCompMonad(): Int = {
@@ -54,9 +87,11 @@ object MonadRunner {
   }
 
   def main(args: Array[String]) {
-    runDbl
-    cnvrt
-    println(runFlatMapMonad)
-    println(runForCompMonad)
+    //runDbl
+    //cnvrt
+    //println(runFlatMapMonad)
+    //println(runForCompMonad)
+    //println(runFlatMapMonadMulti)
+    println(runFlatMapMonadMulti2)
   }
 }
