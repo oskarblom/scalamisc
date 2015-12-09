@@ -1,4 +1,4 @@
-package org.oskarblom.scalamisc.httprequest
+package org.oskarblom.scalamisc.javahttprequest
 
 import java.io.{InputStreamReader, BufferedReader}
 import java.net._
