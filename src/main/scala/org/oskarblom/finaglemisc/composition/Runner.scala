@@ -1,6 +1,6 @@
 package org.oskarblom.finaglemisc.composition
 
-import com.twitter.util.{Await, Future}
+import com.twitter.util.{Duration, Await, Future}
 
 /**
   * Created by oskar on 2015/11/27.
@@ -29,7 +29,7 @@ object Runner {
 
   def main(args: Array[String]) {
     val images = getImages()
-    val resolvedImages = Await.ready(images)
+    val resolvedImages = Await.result(images)
     ""
   }
 }

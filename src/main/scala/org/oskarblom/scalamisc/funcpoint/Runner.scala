@@ -4,37 +4,28 @@ package org.oskarblom.scalamisc.funcpoint
   * Created by oskar on 2015/11/14.
   */
 object Handlers  {
-  def fooHandler(db: String): Unit = {
-    println("DB: " + db +  " " + "in statshandler")
+
+  def barHandler = (db: String) => {
+    println("DB: " + db +  " " + "in barhandler")
   }
 
-  def barHandler(db: String): Unit = {
-    println("DB: " + db +  " " + "in dogtaghandler")
+  def fooHandler = (db: String) => {
+    println("DB: " + db +  " " + "in foohandler")
   }
+
 }
 
-abstract class DbAdapter {
-
-  def matchDb(db: String) = {
-
-  }
-
-  def process(db: String) = {
-
-  }
-}
 
 object Runner {
 
   val dbs = Seq("table_1_stuff", "table_2_stuff", "table_3_stuff")
 
   val handlerMapping = Map(
-    "gamea" -> ((d: String) => { Handlers.fooHandler(d)}),
-    "gameb" -> Handlers.barHandler _
+    "a" -> Handlers.barHandler,
+    "b" -> Handlers.fooHandler,
   )
 
   def main(args: Array[String]) {
-    dbs.foreach(handlerMapping("gameb")(_))
+    dbs.foreach(handlerMapping("a"))
   }
-
 }
